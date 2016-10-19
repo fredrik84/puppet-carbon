@@ -1,0 +1,12 @@
+
+[<%= @name %>]
+<% if @pattern -%>
+pattern = <%= @pattern %>
+<% end -%>
+<% unless @default.nil? -%>
+default = <%= @default ? 'True' : 'False' %>
+<% end -%>
+destinations = <%= @destinations.map { |x| "#{x['host']}:#{x['port']}" + (x.include?('instance') ? ":#{x['instance']}" : '') }.join(', ') %>
+<% unless @continue.nil? -%>
+continue = <%= @continue ? 'True' : 'False' %>
+<% end -%>

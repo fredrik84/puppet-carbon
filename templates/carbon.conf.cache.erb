@@ -1,0 +1,161 @@
+
+[cache<%= ":#{@name}" unless @name.eql?('a') %>]
+<% if @storage_dir -%>
+STORAGE_DIR = <%= @storage_dir %>
+<% end -%>
+<% if @local_data_dir -%>
+LOCAL_DATA_DIR = <%= @local_data_dir %>
+<% end -%>
+<% if @whitelists_dir -%>
+WHITELISTS_DIR = <%= @whitelists_dir %>
+<% end -%>
+<% if @conf_dir -%>
+CONF_DIR = <%= @conf_dir %>
+<% end -%>
+<% if @log_dir -%>
+LOG_DIR = <%= @log_dir %>
+<% end -%>
+<% if @pid_dir -%>
+PID_DIR = <%= @pid_dir %>
+<% end -%>
+<% unless @enable_logrotation.nil? -%>
+ENABLE_LOGROTATION = <%= @enable_logrotation ? 'True' : 'False' %>
+<% end -%>
+<% if @user -%>
+USER = <%= @user %>
+<% end -%>
+<% if @max_cache_size -%>
+MAX_CACHE_SIZE = <%= @max_cache_size %>
+<% end -%>
+<% if @max_updates_per_second -%>
+MAX_UPDATES_PER_SECOND = <%= @max_updates_per_second %>
+<% end -%>
+<% if @max_updates_per_second_on_shutdown -%>
+MAX_UPDATES_PER_SECOND_ON_SHUTDOWN = <%= @max_updates_per_second_on_shutdown %>
+<% end -%>
+<% if @max_creates_per_minute -%>
+MAX_CREATES_PER_MINUTE = <%= @max_creates_per_minute %>
+<% end -%>
+<% if @line_receiver_interface -%>
+LINE_RECEIVER_INTERFACE = <%= @line_receiver_interface %>
+<% end -%>
+<% if @line_receiver_port -%>
+LINE_RECEIVER_PORT = <%= @line_receiver_port %>
+<% end -%>
+<% if @line_receiver_backlog -%>
+LINE_RECEIVER_BACKLOG = <%= @line_receiver_backlog %>
+<% end -%>
+<% unless @enable_udp_listener.nil? -%>
+ENABLE_UDP_LISTENER = <%= @enable_udp_listener ? 'True' : 'False' %>
+<% end -%>
+<% if @udp_receiver_interface -%>
+UDP_RECEIVER_INTERFACE = <%= @udp_receiver_interface %>
+<% end -%>
+<% if @udp_receiver_port -%>
+UDP_RECEIVER_PORT = <%= @udp_receiver_port %>
+<% end -%>
+<% if @pickle_receiver_interface -%>
+PICKLE_RECEIVER_INTERFACE = <%= @pickle_receiver_interface %>
+<% end -%>
+<% if @pickle_receiver_port -%>
+PICKLE_RECEIVER_PORT = <%= @pickle_receiver_port %>
+<% end -%>
+<% if @pickle_receiver_backlog -%>
+PICKLE_RECEIVER_BACKLOG = <%= @pickle_receiver_backlog %>
+<% end -%>
+<% unless @log_listener_connections.nil? -%>
+LOG_LISTENER_CONNECTIONS = <%= @log_listener_connections ? 'True' : 'False' %>
+<% end -%>
+<% unless @use_insecure_unpickler.nil? -%>
+USE_INSECURE_UNPICKLER = <%= @use_insecure_unpickler ? 'True' : 'False' %>
+<% end -%>
+<% if @cache_query_interface -%>
+CACHE_QUERY_INTERFACE = <%= @cache_query_interface %>
+<% end -%>
+<% if @cache_query_port -%>
+CACHE_QUERY_PORT = <%= @cache_query_port %>
+<% end -%>
+<% if @cache_query_backlog -%>
+CACHE_QUERY_BACKLOG = <%= @cache_query_backlog %>
+<% end -%>
+<% unless @use_flow_control.nil? -%>
+USE_FLOW_CONTROL = <%= @use_flow_control ? 'True' : 'False' %>
+<% end -%>
+<% unless @log_updates.nil? -%>
+LOG_UPDATES = <%= @log_updates ? 'True' : 'False' %>
+<% end -%>
+<% unless @log_cache_hits.nil? -%>
+LOG_CACHE_HITS = <%= @log_cache_hits ? 'True' : 'False' %>
+<% end -%>
+<% unless @log_cache_queue_sorts.nil? -%>
+LOG_CACHE_QUEUE_SORTS = <%= @log_cache_queue_sorts ? 'True' : 'False' %>
+<% end -%>
+<% if @cache_write_strategy -%>
+CACHE_WRITE_STRATEGY = <%= @cache_write_strategy %>
+<% end -%>
+<% unless @whisper_autoflush.nil? -%>
+WHISPER_AUTOFLUSH = <%= @whisper_autoflush ? 'True' : 'False' %>
+<% end -%>
+<% unless @whisper_sparse_create.nil? -%>
+WHISPER_SPARSE_CREATE = <%= @whisper_sparse_create ? 'True' : 'False' %>
+<% end -%>
+<% unless @whisper_fallocate_create.nil? -%>
+WHISPER_FALLOCATE_CREATE = <%= @whisper_fallocate_create ? 'True' : 'False' %>
+<% end -%>
+<% unless @whisper_lock_writes.nil? -%>
+WHISPER_LOCK_WRITES = <%= @whisper_lock_writes ? 'True' : 'False' %>
+<% end -%>
+<% unless @use_whitelist.nil? -%>
+USE_WHITELIST = <%= @use_whitelist ? 'True' : 'False' %>
+<% end -%>
+<% if @carbon_metric_prefix -%>
+CARBON_METRIC_PREFIX = <%= @carbon_metric_prefix %>
+<% end -%>
+<% if @carbon_metric_interval -%>
+CARBON_METRIC_INTERVAL = <%= @carbon_metric_interval %>
+<% end -%>
+<% unless @enable_amqp.nil? -%>
+ENABLE_AMQP = <%= @enable_amqp ? 'True' : 'False' %>
+<% end -%>
+<% unless @amqp_verbose.nil? -%>
+AMQP_VERBOSE = <%= @amqp_verbose ? 'True' : 'False' %>
+<% end -%>
+<% if @amqp_host -%>
+AMQP_HOST = <%= @amqp_host %>
+<% end -%>
+<% if @amqp_port -%>
+AMQP_PORT = <%= @amqp_port %>
+<% end -%>
+<% if @amqp_vhost -%>
+AMQP_VHOST = <%= @amqp_vhost %>
+<% end -%>
+<% if @amqp_user -%>
+AMQP_USER = <%= @amqp_user %>
+<% end -%>
+<% if @amqp_password -%>
+AMQP_PASSWORD = <%= @amqp_password %>
+<% end -%>
+<% if @amqp_exchange -%>
+AMQP_EXCHANGE = <%= @amqp_exchange %>
+<% end -%>
+<% unless @amqp_metric_name_in_body.nil? -%>
+AMQP_METRIC_NAME_IN_BODY = <%= @amqp_metric_name_in_body ? 'True' : 'False' %>
+<% end -%>
+<% unless @enable_manhole.nil? -%>
+ENABLE_MANHOLE = <%= @enable_manhole ? 'True' : 'False' %>
+<% end -%>
+<% if @manhole_interface -%>
+MANHOLE_INTERFACE = <%= @manhole_interface %>
+<% end -%>
+<% if @manhole_port -%>
+MANHOLE_PORT = <%= @manhole_port %>
+<% end -%>
+<% if @manhole_user -%>
+MANHOLE_USER = <%= @manhole_user %>
+<% end -%>
+<% if @manhole_public_key -%>
+MANHOLE_PUBLIC_KEY = <%= @manhole_public_key %>
+<% end -%>
+<% if @bind_patterns -%>
+BIND_PATTERNS = <%= @bind_patterns.join(', ') %>
+<% end -%>

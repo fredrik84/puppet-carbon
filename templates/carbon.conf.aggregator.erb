@@ -1,0 +1,50 @@
+
+[aggregator<%= ":#{@name}" unless @name.eql?('a') %>]
+<% if @line_receiver_interface -%>
+LINE_RECEIVER_INTERFACE = <%= @line_receiver_interface %>
+<% end -%>
+<% if @line_receiver_port -%>
+LINE_RECEIVER_PORT = <%= @line_receiver_port %>
+<% end -%>
+<% if @pickle_receiver_interface -%>
+PICKLE_RECEIVER_INTERFACE = <%= @pickle_receiver_interface %>
+<% end -%>
+<% if @pickle_receiver_port -%>
+PICKLE_RECEIVER_PORT = <%= @pickle_receiver_port %>
+<% end -%>
+<% unless @log_listener_connections.nil? -%>
+LOG_LISTENER_CONNECTIONS = <%= @log_listener_connections ? 'True' : 'False' %>
+<% end -%>
+<% unless @forward_all.nil? -%>
+FORWARD_ALL = <%= @forward_all ? 'True' : 'False' %>
+<% end -%>
+<% if @destinations -%>
+DESTINATIONS = <%= @destinations.map { |x| "#{x['host']}:#{x['port']}" + (x.include?('instance') ? ":#{x['instance']}" : '') }.join(', ') %>
+<% end -%>
+<% if @replication_factor -%>
+REPLICATION_FACTOR = <%= @replication_factor %>
+<% end -%>
+<% if @max_queue_size -%>
+MAX_QUEUE_SIZE = <%= @max_queue_size %>
+<% end -%>
+<% unless @use_flow_control.nil? -%>
+USE_FLOW_CONTROL = <%= @use_flow_control ? 'True' : 'False' %>
+<% end -%>
+<% if @max_datapoints_per_message -%>
+MAX_DATAPOINTS_PER_MESSAGE = <%= @max_datapoints_per_message %>
+<% end -%>
+<% if @max_aggregation_intervals -%>
+MAX_AGGREGATION_INTERVALS = <%= @max_aggregation_intervals %>
+<% end -%>
+<% if @write_back_frequency -%>
+WRITE_BACK_FREQUENCY = <%= @write_back_frequency %>
+<% end -%>
+<% unless @use_whitelist.nil? -%>
+USE_WHITELIST = <%= @use_whitelist ? 'True' : 'False' %>
+<% end -%>
+<% if @carbon_metric_prefix -%>
+CARBON_METRIC_PREFIX = <%= @carbon_metric_prefix %>
+<% end -%>
+<% if @carbon_metric_interval -%>
+CARBON_METRIC_INTERVAL = <%= @carbon_metric_interval %>
+<% end -%>

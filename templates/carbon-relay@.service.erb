@@ -1,0 +1,14 @@
+[Unit]
+Description=Graphite Carbon Relay %I
+After=network.target
+
+[Service]
+Type=forking
+StandardOutput=syslog
+StandardError=syslog
+ExecStart=/usr/bin/carbon-relay --config=<%= @conf_dir %>/carbon.conf --pidfile=<%= @pid_dir %>/carbon-relay-%I.pid --logdir=<%= @log_dir %>/ --instance=%I start
+ExecReload=/bin/kill -USR1 $MAINPID
+PIDFile=<%= @pid_dir %>/carbon-relay-%I.pid
+
+[Install]
+WantedBy=multi-user.target
