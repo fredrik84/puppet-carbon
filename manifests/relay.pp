@@ -11,7 +11,7 @@ define carbon::relay (
     Enum[
       'rules',
       'consistent-hashing',
-      'aggregated-consistent-hashing',
+      'aggregated-consistent-hashing' # lint:ignore:trailing_comma
     ]
   ]                           $relay_method               = undef,
   Optional[Integer[1]]        $replication_factor         = undef,
