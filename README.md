@@ -68,7 +68,7 @@ include ::carbon
 
 **Parameters within `carbon`:**
 
-##### `aggregation_rules
+##### `aggregation_rules`
 
 A hash of [carbon::aggregation_rule](#defined-type-carbonaggregation_rule)
 instances to create.
