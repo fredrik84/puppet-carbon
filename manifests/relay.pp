@@ -1,15 +1,21 @@
 #
 define carbon::relay (
-  Enum['stopped', 'running']                                                     $ensure,
-  Boolean                                                                        $enable,
-  Optional[String]                                                               $line_receiver_interface    = undef,
-  Optional[Integer[0, 65535]]                                                    $line_receiver_port         = undef,
-  Optional[String]                                                               $pickle_receiver_interface  = undef,
-  Optional[Integer[0, 65535]]                                                    $pickle_receiver_port       = undef,
-  Optional[Boolean]                                                              $log_listener_connections   = undef,
-  Optional[Enum['rules', 'consistent-hashing', 'aggregated-consistent-hashing']] $relay_method               = undef,
-  Optional[Integer[1]]                                                           $replication_factor         = undef,
-  Optional[Boolean]                                                              $diverse_replicas           = undef,
+  Enum['stopped', 'running']  $ensure,
+  Boolean                     $enable,
+  Optional[String]            $line_receiver_interface    = undef,
+  Optional[Integer[0, 65535]] $line_receiver_port         = undef,
+  Optional[String]            $pickle_receiver_interface  = undef,
+  Optional[Integer[0, 65535]] $pickle_receiver_port       = undef,
+  Optional[Boolean]           $log_listener_connections   = undef,
+  Optional[
+    Enum[
+      'rules',
+      'consistent-hashing',
+      'aggregated-consistent-hashing',
+    ]
+  ]                           $relay_method               = undef,
+  Optional[Integer[1]]        $replication_factor         = undef,
+  Optional[Boolean]           $diverse_replicas           = undef,
   Optional[
     Array[
       Struct[
@@ -21,14 +27,14 @@ define carbon::relay (
       ],
       1
     ]
-  ]                                                                              $destinations               = undef,
-  Optional[Integer[0]]                                                           $max_datapoints_per_message = undef,
-  Optional[Integer[0]]                                                           $max_queue_size             = undef,
-  Optional[Float[0, 1]]                                                          $queue_low_watermark_pct    = undef,
-  Optional[Boolean]                                                              $use_flow_control           = undef,
-  Optional[Boolean]                                                              $use_whitelist              = undef,
-  Optional[String]                                                               $carbon_metric_prefix       = undef,
-  Optional[Integer[0]]                                                           $carbon_metric_interval     = undef,
+  ]                           $destinations               = undef,
+  Optional[Integer[0]]        $max_datapoints_per_message = undef,
+  Optional[Integer[0]]        $max_queue_size             = undef,
+  Optional[Float[0, 1]]       $queue_low_watermark_pct    = undef,
+  Optional[Boolean]           $use_flow_control           = undef,
+  Optional[Boolean]           $use_whitelist              = undef,
+  Optional[String]            $carbon_metric_prefix       = undef,
+  Optional[Integer[0]]        $carbon_metric_interval     = undef,
 ) {
 
   if ! defined(Class['::carbon']) {
