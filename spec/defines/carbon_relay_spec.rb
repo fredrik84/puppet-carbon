@@ -38,7 +38,6 @@ describe 'carbon::relay' do
           PICKLE_RECEIVER_PORT = 2114
           EOS
         end
-        it { should contain_file('/etc/systemd/system/carbon-relay@b.service') }
         it { should contain_service('carbon-relay@b') }
       end
     end

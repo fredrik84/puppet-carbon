@@ -78,14 +78,10 @@ define carbon::cache (
     validate_ip_address($manhole_interface)
   }
 
-  $service_ensure = $enable ? {
-    true    => link,
-    default => absent,
-  }
-
-  file { "/etc/systemd/system/carbon-cache@${name}.service":
-    ensure => $service_ensure,
-    target => '/etc/systemd/system/carbon-cache@.service',
+  ::concat::fragment { "${::carbon::conf_dir}/carbon.conf cache ${name}":
+    content => template("${module_name}/carbon.conf.cache.erb"),
+    order   => "1${name}",
+    target  => "${::carbon::conf_dir}/carbon.conf",
   }
 
   service { "carbon-cache@${name}":
@@ -94,27 +90,13 @@ define carbon::cache (
     hasstatus  => true,
     hasrestart => true,
     require    => [
-      Concat["${::carbon::conf_dir}/blacklist.conf"],
-      Concat["${::carbon::conf_dir}/carbon.conf"],
       Concat["${::carbon::conf_dir}/storage-aggregation.conf"],
       Concat["${::carbon::conf_dir}/storage-schemas.conf"],
+    ],
+    subscribe  => [
+      Concat["${::carbon::conf_dir}/blacklist.conf"],
+      Concat["${::carbon::conf_dir}/carbon.conf"],
       Concat["${::carbon::conf_dir}/whitelist.conf"],
     ],
-  }
-
-  case $enable {
-    true: {
-      ::concat::fragment { "${::carbon::conf_dir}/carbon.conf cache ${name}":
-        content => template("${module_name}/carbon.conf.cache.erb"),
-        order   => "1${name}",
-        target  => "${::carbon::conf_dir}/carbon.conf",
-        notify  => Service["carbon-cache@${name}"],
-      }
-
-      File["/etc/systemd/system/carbon-cache@${name}.service"] -> Service["carbon-cache@${name}"]
-    }
-    default: {
-      Service["carbon-cache@${name}"] -> File["/etc/systemd/system/carbon-cache@${name}.service"]
-    }
   }
 }

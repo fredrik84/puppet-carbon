@@ -38,7 +38,6 @@ describe 'carbon::aggregator' do
           PICKLE_RECEIVER_PORT = 2124
           EOS
         end
-        it { should contain_file('/etc/systemd/system/carbon-aggregator@b.service') }
         it { should contain_service('carbon-aggregator@b') }
       end
     end

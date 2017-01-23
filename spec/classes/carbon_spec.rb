@@ -120,9 +120,6 @@ describe 'carbon' do
       it { should contain_file('/etc/systemd/system/carbon-aggregator@.service') }
       it { should contain_file('/etc/systemd/system/carbon-cache@.service') }
       it { should contain_file('/etc/systemd/system/carbon-relay@.service') }
-      it { should contain_file('/etc/systemd/system/carbon-aggregator@a.service') }
-      it { should contain_file('/etc/systemd/system/carbon-cache@a.service') }
-      it { should contain_file('/etc/systemd/system/carbon-relay@a.service') }
       it { should contain_package('python-carbon') }
       it { should contain_service('carbon-aggregator').with_ensure('stopped').with_enable('false') }
       it { should contain_service('carbon-cache').with_ensure('stopped').with_enable('false') }

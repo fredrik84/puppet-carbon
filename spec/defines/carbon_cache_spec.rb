@@ -40,7 +40,6 @@ describe 'carbon::cache' do
           CACHE_QUERY_PORT = 7102
           EOS
         end
-        it { should contain_file('/etc/systemd/system/carbon-cache@b.service') }
         it { should contain_service('carbon-cache@b') }
       end
     end

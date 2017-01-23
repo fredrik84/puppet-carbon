@@ -43,14 +43,10 @@ define carbon::aggregator (
     validate_ip_address($pickle_receiver_interface)
   }
 
-  $service_ensure = $enable ? {
-    true    => link,
-    default => absent,
-  }
-
-  file { "/etc/systemd/system/carbon-aggregator@${name}.service":
-    ensure => $service_ensure,
-    target => '/etc/systemd/system/carbon-aggregator@.service',
+  ::concat::fragment { "${::carbon::conf_dir}/carbon.conf aggregator ${name}":
+    content => template("${module_name}/carbon.conf.aggregator.erb"),
+    order   => "3${name}",
+    target  => "${::carbon::conf_dir}/carbon.conf",
   }
 
   service { "carbon-aggregator@${name}":
@@ -58,28 +54,12 @@ define carbon::aggregator (
     enable     => $enable,
     hasstatus  => true,
     hasrestart => true,
-    require    => [
+    subscribe  => [
       Concat["${::carbon::conf_dir}/aggregation-rules.conf"],
-      Concat["${::carbon::conf_dir}/blacklist.conf"],
       Concat["${::carbon::conf_dir}/carbon.conf"],
+      Concat["${::carbon::conf_dir}/blacklist.conf"],
       Concat["${::carbon::conf_dir}/rewrite-rules.conf"],
       Concat["${::carbon::conf_dir}/whitelist.conf"],
     ],
-  }
-
-  case $enable {
-    true: {
-      ::concat::fragment { "${::carbon::conf_dir}/carbon.conf aggregator ${name}":
-        content => template("${module_name}/carbon.conf.aggregator.erb"),
-        order   => "3${name}",
-        target  => "${::carbon::conf_dir}/carbon.conf",
-        notify  => Service["carbon-aggregator@${name}"],
-      }
-
-      File["/etc/systemd/system/carbon-aggregator@${name}.service"] -> Service["carbon-aggregator@${name}"]
-    }
-    default: {
-      Service["carbon-aggregator@${name}"] -> File["/etc/systemd/system/carbon-aggregator@${name}.service"]
-    }
   }
 }

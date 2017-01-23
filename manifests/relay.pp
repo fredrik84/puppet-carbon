@@ -49,14 +49,10 @@ define carbon::relay (
     validate_ip_address($pickle_receiver_interface)
   }
 
-  $service_ensure = $enable ? {
-    true    => link,
-    default => absent,
-  }
-
-  file { "/etc/systemd/system/carbon-relay@${name}.service":
-    ensure => $service_ensure,
-    target => '/etc/systemd/system/carbon-relay@.service',
+  ::concat::fragment { "${::carbon::conf_dir}/carbon.conf relay ${name}":
+    content => template("${module_name}/carbon.conf.relay.erb"),
+    order   => "2${name}",
+    target  => "${::carbon::conf_dir}/carbon.conf",
   }
 
   service { "carbon-relay@${name}":
@@ -64,27 +60,11 @@ define carbon::relay (
     enable     => $enable,
     hasstatus  => true,
     hasrestart => true,
-    require    => [
+    subscribe  => [
       Concat["${::carbon::conf_dir}/blacklist.conf"],
       Concat["${::carbon::conf_dir}/carbon.conf"],
       Concat["${::carbon::conf_dir}/relay-rules.conf"],
       Concat["${::carbon::conf_dir}/whitelist.conf"],
     ],
-  }
-
-  case $enable {
-    true: {
-      ::concat::fragment { "${::carbon::conf_dir}/carbon.conf relay ${name}":
-        content => template("${module_name}/carbon.conf.relay.erb"),
-        order   => "2${name}",
-        target  => "${::carbon::conf_dir}/carbon.conf",
-        notify  => Service["carbon-relay@${name}"],
-      }
-
-      File["/etc/systemd/system/carbon-relay@${name}.service"] -> Service["carbon-relay@${name}"]
-    }
-    default: {
-      Service["carbon-relay@${name}"] -> File["/etc/systemd/system/carbon-relay@${name}.service"]
-    }
   }
 }
